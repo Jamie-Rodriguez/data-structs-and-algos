@@ -37,7 +37,7 @@ const maximum = (tree, index) => {
 // of a faster way to do this functionally currently...
 const update = (array, index, value) => array.map((x, i) => i === index ? value : x)
 
-// Container functionfor comparison of generic objects
+// Container function for comparison of generic objects
 // Returns:
 // 	null if value "equal to" node, this is not actually compared against
 // 		in this codebase
