@@ -63,6 +63,27 @@ const bfsIterative = (graph, start) => {
 	}
 }
 
+const findPathDfs = (graph, goal, currentVertex, visited=[], path=[]) => {
+	if (!visited.includes(currentVertex)) {
+		if (graph.vertices[currentVertex] === goal) {
+			return path.concat(graph.vertices[currentVertex])
+		}
+
+		visited.push(currentVertex)
+
+		for (const i of adjacentVertexIndexes(graph.adjMatrix, currentVertex)) {
+			const p = findPathDfs(graph, goal, i, visited, path.concat(graph.vertices[currentVertex]))
+
+			if (p) {
+				return p
+			}
+		}
+	}
+
+	// Hit a dead end - a vertex with no new adjacent vertices
+	return undefined
+}
+
 
 // Although these algorithms work for any graph,
 // I’m using a tree as an example easily demonstrates the difference between
@@ -116,16 +137,28 @@ const undirectedGraph = {
 }
 
 
-// Demo
-console.log('dfsRecursive(tree, 0)')
+// Demos
+console.log('dfsRecursive(tree, 0):')
 dfsRecursive(tree, 0)
-console.log('dfsIterative(tree, 0)')
+console.log('dfsIterative(tree, 0):')
 dfsIterative(tree, 0)
-console.log('dfsRecursive(directedGraph, 0)')
+
+console.log('dfsRecursive(directedGraph, 0):')
 dfsRecursive(directedGraph, 0)
-console.log('dfsIterative(directedGraph, 0)')
+console.log('dfsIterative(directedGraph, 0):')
 dfsIterative(directedGraph, 0)
-console.log('dfsRecursive(undirectedGraph, 0)')
+
+console.log('dfsRecursive(undirectedGraph, 0):')
 dfsRecursive(undirectedGraph, 0)
-console.log('dfsIterative(undirectedGraph, 0)')
+console.log('dfsIterative(undirectedGraph, 0):')
 dfsIterative(undirectedGraph, 0)
+
+console.log('bfsIterative(tree, 0):')
+bfsIterative(tree, 0)
+
+console.log('findPathDfs(tree, \'E\', 0):')
+console.log(findPathDfs(tree, 'E', 0))
+console.log('findPathDfs(tree, \'Z\', 0):')
+console.log(findPathDfs(tree, 'Z', 0))
+console.log('findPathDfs(directedGraph, \'B\', 0):')
+console.log(findPathDfs(directedGraph, 'B', 0))
