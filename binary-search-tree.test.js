@@ -16,7 +16,7 @@ export const isBinarySearchTree = (tree, min = -Infinity, max = Infinity) => {
 
     const { key, left, right } = tree
 
-    if (key <= min || max <= key)
+    if (!(min < key && key < max))
         return false
 
     return isBinarySearchTree(left, min, key) && isBinarySearchTree(right, key, max)
